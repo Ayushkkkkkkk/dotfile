@@ -751,7 +751,6 @@ require('lazy').setup {
   { 'maxmx03/solarized.nvim' },
   { 'mbbill/undotree' },
   { "folke/trouble.nvim" },
-  { "windwp/nvim-ts-autotag" },
   { 'rktjmp/lush.nvim' },
   { 'sthendev/mariana.vim',                run = 'make' },
   { 'tjdevries/colorbuddy.nvim' },
@@ -762,6 +761,12 @@ require('lazy').setup {
   { 'metalelf0/jellybeans-nvim' },
   { 'nanotech/jellybeans.vim' },
   { 'sainnhe/gruvbox-material' },
+  {
+    'windwp/nvim-ts-autotag',
+    ft = { 'html', 'javascript', 'typescript' },
+  },
+
+
   {
     "RaphaeleL/my_vivid",
   },
@@ -823,7 +828,6 @@ require('lazy').setup {
 
     ---@diagnostic disable-next-line: missing-fields
     require('nvim-treesitter.configs').setup(opts)
-
     -- There are additional nvim-treesitter modules that you can use to interact
     -- with nvim-treesitter. You should go explore a few and see what interests you:
     --
@@ -833,13 +837,10 @@ require('lazy').setup {
   end,
   },
 
-
-
-
-
-
-
 }
+
+require('nvim-ts-autotag').setup()
+
 
 require("tokyonight").setup({
   -- your configuration comes here
@@ -1170,9 +1171,6 @@ vim.cmd([[
 ]])
 
 
-
-
-
 function ColorMyPencils(color)
   color = color or "my_vivid"
   vim.cmd.colorscheme(color)
@@ -1202,7 +1200,7 @@ require("toggleterm").setup {
   shading_factor = '1',
   start_in_insert = true,
   persist_size = true,
-  direction = 'float',
+  direction = 'tab',
   hide_numbers = true,
   float_opts = {
     border = "curved",
@@ -1222,7 +1220,7 @@ vim.keymap.set("n", "<leader>ad", mark.add_file)
 vim.keymap.set("n", "<C-e>", ui.toggle_quick_menu)
 
 vim.keymap.set("n", "<C-g>", function() ui.nav_file(1) end)
-vim.keymap.set("n", "<C-h>", function() ui.nav_file(2) end)
+vim.keymap.set("n", "<C-t>", function() ui.nav_file(2) end)
 vim.keymap.set("n", "<C-b>", function() ui.nav_file(3) end)
 vim.keymap.set("n", "<C-n>", function() ui.nav_file(4) end)
 
@@ -1355,15 +1353,7 @@ vim.api.nvim_set_keymap('n', '<Leader>lr', ':LspRestart<CR>', { noremap = true, 
 --view database
 vim.api.nvim_set_keymap('n', '<Leader>db', ':DBUI', { noremap = true, silent = true })
 
-require 'nvim-treesitter.configs'.setup {
-  autotag = {
-    enable = true,
-  },
-  highlight = {
-    enable = true,
-    disable = { "cursor_highlight" },
-  }
-}
+
 
 
 require("oil").setup({
@@ -1550,11 +1540,26 @@ vim.opt.shiftwidth = 4   -- Number of spaces to use for each step of (auto)inden
 vim.opt.tabstop = 4      -- Number of spaces that a <Tab> in the file counts for
 vim.opt.softtabstop = 4  -- Number of spaces that a <Tab> counts for while editing
 
+
+local set = vim.keymap.set
 -- Basic movement keybinds, these make navigating splits easy for me
 set("n", "<c-j>", "<c-w><c-j>")
 set("n", "<c-k>", "<c-w><c-k>")
 set("n", "<c-l>", "<c-w><c-l>")
 set("n", "<c-h>", "<c-w><c-h>")
+
+
+-- Map <leader>v to vertical split
+vim.api.nvim_set_keymap('n', '<leader>v', ':vsplit<CR>', { noremap = true, silent = true })
+
+-- Map <leader>h to horizontal split
+vim.api.nvim_set_keymap('n', '<leader>h', ':split<CR>', { noremap = true, silent = true })
+
+
+-- Define the highlight groups with italics
+
+
+
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2
