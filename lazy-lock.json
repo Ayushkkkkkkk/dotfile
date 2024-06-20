@@ -38,6 +38,7 @@
   "nvim-lspconfig": { "branch": "master", "commit": "37f362ef42d1a604d332e8d3d7d47593852b4313" },
   "nvim-terminal.lua": { "branch": "master", "commit": "095f98aaa7265628a72cd2706350c091544b5602" },
   "nvim-treesitter": { "branch": "master", "commit": "8dd40c7609c04d7bad7eb21d71f78c3fa4dc1c2c" },
+  "nvim-ts-autotag": { "branch": "main", "commit": "06fe07d7523ba8c755fac7c913fceba43b1720ee" },
   "nvim-web-devicons": { "branch": "master", "commit": "c0cfc1738361b5da1cd0a962dd6f774cc444f856" },
   "oil.nvim": { "branch": "master", "commit": "b77ed915ab1e53720a6283702816cea2695a2638" },
   "onedark.nvim": { "branch": "master", "commit": "8e4b79b0e6495ddf29552178eceba1e147e6cecf" },
@@ -58,6 +59,7 @@
   "vim-dadbod-completion": { "branch": "master", "commit": "5d5ad196fcde223509d7dabbade0148f7884c5e3" },
   "vim-dadbod-ui": { "branch": "master", "commit": "0dc68d9225a70d42f8645049482e090c1a8dce25" },
   "vim-fugitive": { "branch": "master", "commit": "64d6cafb9dcbacce18c26d7daf617ebb96b273f3" },
+  "vim-react-snippets": { "branch": "main", "commit": "19c86459f4cd545f889624df13b8d5862457c633" },
   "vim-sleuth": { "branch": "master", "commit": "1cc4557420f215d02c4d2645a748a816c220e99b" },
   "vscode.nvim": { "branch": "main", "commit": "ff3926901d4160886f707a8a70b5c2e82979a7c4" }
 }

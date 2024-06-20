@@ -1172,7 +1172,7 @@ vim.cmd([[
 
 
 function ColorMyPencils(color)
-  color = color or "my_vivid"
+  color = color or "gruvbuddy"
   vim.cmd.colorscheme(color)
   vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
   vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
@@ -1549,17 +1549,65 @@ set("n", "<c-l>", "<c-w><c-l>")
 set("n", "<c-h>", "<c-w><c-h>")
 
 
+
+
 -- Map <leader>v to vertical split
 vim.api.nvim_set_keymap('n', '<leader>v', ':vsplit<CR>', { noremap = true, silent = true })
 
 -- Map <leader>h to horizontal split
 vim.api.nvim_set_keymap('n', '<leader>h', ':split<CR>', { noremap = true, silent = true })
 
+-- file: colors/my-colorscheme-name.lua
 
--- Define the highlight groups with italics
+local colorbuddy = require('colorbuddy')
 
+-- Set up your custom colorscheme if you want
+colorbuddy.colorscheme("gruvbuddy")
 
+-- And then modify as you like
+local Color = colorbuddy.Color
+local colors = colorbuddy.colors
+local Group = colorbuddy.Group
+local groups = colorbuddy.groups
+local styles = colorbuddy.styles
 
+-- Use Color.new(<name>, <#rrggbb>) to create new colors
+-- They can be accessed through colors.<name>
+Color.new('background', '#282c34')
+Color.new('lineNr', '#b3b3b3') -- Add a new color for line numbers
+Color.new('none', 'NONE')
+Color.new('foreground', '#e0e0e0')
+-- Define highlights in terms of `colors` and `groups`
+Group.new('CursorLine', nil, nil, styles.NONE)
+Group.new('CursorColumn', nil, nil, styles.NONE)
 
+-- Disable search highlights
+Group.new('Search', nil, nil, styles.NONE)
+Group.new('IncSearch', nil, nil, styles.NONE)
+
+-- Disable matching parentheses highlights
+Group.new('MatchParen', nil, nil, styles.NONE)
+
+-- Disable visual mode highlights
+Group.new('Visual', nil, nil, styles.NONE)
+
+-- Set default highlights for normal text
+Group.new('Normal', colors.foreground, colors.background)
+
+-- Disable cursor line and column highlights
+Group.new('CursorLine', nil, nil, styles.NONE)
+Group.new('CursorColumn', nil, nil, styles.NONE)
+
+-- Disable search highlights
+Group.new('Search', nil, nil, styles.NONE)
+Group.new('IncSearch', nil, nil, styles.NONE)
+
+-- Disable matching parentheses highlights
+Group.new('MatchParen', nil, nil, styles.NONE)
+
+-- Disable visual mode highlights
+Group.new('Visual', nil, nil, styles.NONE)
+-- Define line number color to ensure it's visible
+Group.new('LineNr', colors.foreground, colors.background)
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2
