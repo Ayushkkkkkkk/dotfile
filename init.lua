@@ -1580,35 +1580,6 @@ Color.new('foreground', '#e0e0e0')
 Color.new('visual_bg', '#3E4452')
 
 
-
--- Define highlights in terms of `colors` and `groups`
-Group.new('CursorLine', nil, nil, styles.NONE)
-Group.new('CursorColumn', nil, nil, styles.NONE)
-
--- Disable search highlights
-Group.new('Search', nil, nil, styles.NONE)
-Group.new('IncSearch', nil, nil, styles.NONE)
-
--- Disable matching parentheses highlights
-Group.new('MatchParen', nil, nil, styles.NONE)
-
--- Disable visual mode highlights
---Group.new('Visual', nil, nil, styles.NONE)
-
--- Set default highlights for normal text
-Group.new('Normal', colors.foreground, colors.background)
-
--- Disable cursor line and column highlights
-Group.new('CursorLine', nil, nil, styles.NONE)
-Group.new('CursorColumn', nil, nil, styles.NONE)
-
--- Disable search highlights
-Group.new('Search', nil, nil, styles.NONE)
-Group.new('IncSearch', nil, nil, styles.NONE)
-
--- Disable matching parentheses highlights
-Group.new('MatchParen', nil, nil, styles.NONE)
-
 -- Disable visual mode highlights
 Group.new('Visual', nil, colors.visual_bg)
 -- Define line number color to ensure it's visible
