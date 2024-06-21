@@ -1577,6 +1577,10 @@ Color.new('background', '#282c34')
 Color.new('lineNr', '#b3b3b3') -- Add a new color for line numbers
 Color.new('none', 'NONE')
 Color.new('foreground', '#e0e0e0')
+Color.new('visual_bg', '#3E4452')
+
+
+
 -- Define highlights in terms of `colors` and `groups`
 Group.new('CursorLine', nil, nil, styles.NONE)
 Group.new('CursorColumn', nil, nil, styles.NONE)
@@ -1589,7 +1593,7 @@ Group.new('IncSearch', nil, nil, styles.NONE)
 Group.new('MatchParen', nil, nil, styles.NONE)
 
 -- Disable visual mode highlights
-Group.new('Visual', nil, nil, styles.NONE)
+--Group.new('Visual', nil, nil, styles.NONE)
 
 -- Set default highlights for normal text
 Group.new('Normal', colors.foreground, colors.background)
@@ -1606,7 +1610,7 @@ Group.new('IncSearch', nil, nil, styles.NONE)
 Group.new('MatchParen', nil, nil, styles.NONE)
 
 -- Disable visual mode highlights
-Group.new('Visual', nil, nil, styles.NONE)
+Group.new('Visual', nil, colors.visual_bg)
 -- Define line number color to ensure it's visible
 Group.new('LineNr', colors.foreground, colors.background)
 -- The line beneath this is called `modeline`. See `:help modeline`
