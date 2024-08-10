@@ -4,7 +4,6 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
-
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
@@ -636,23 +635,51 @@ require('lazy').setup {
     end,
   },
 
-  { -- You can easily change to a different colorscheme.
-    -- Change the name of the colorscheme plugin below, and then
-    -- change the command in the config to whatever the name of that colorscheme is.
-    --
-    -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
-    'folke/tokyonight.nvim',
-    priority = 1000, -- Make sure to load this before all the other start plugins.
-    init = function()
-      -- Load the colorscheme here.
-      -- Like many other themes, this one has different styles, and you could load
-      -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-      -- vim.cmd.colorscheme 'tokyonight-night'
+  {
+    "folke/tokyonight.nvim",
+    priority = 1000,
+    config = function()
+      local transparent = true -- set to true if you would like to enable transparency
 
-      -- You can configure highlights by doing something like:
-      vim.cmd.hi 'Comment gui=none'
+      local bg = "#011628"
+      local bg_dark = "#011423"
+      local bg_highlight = "#143652"
+      local bg_search = "#0A64AC"
+      local bg_visual = "#275378"
+      local fg = "#CBE0F0"
+      local fg_dark = "#B4D0E9"
+      local fg_gutter = "#627E97"
+      local border = "#547998"
+
+      require("tokyonight").setup({
+        style = "night",
+        transparent = transparent,
+        styles = {
+          sidebars = transparent and "transparent" or "dark",
+          floats = transparent and "transparent" or "dark",
+        },
+        on_colors = function(colors)
+          colors.bg = bg
+          colors.bg_dark = transparent and colors.none or bg_dark
+          colors.bg_float = transparent and colors.none or bg_dark
+          colors.bg_highlight = bg_highlight
+          colors.bg_popup = bg_dark
+          colors.bg_search = bg_search
+          colors.bg_sidebar = transparent and colors.none or bg_dark
+          colors.bg_statusline = transparent and colors.none or bg_dark
+          colors.bg_visual = bg_visual
+          colors.border = border
+          colors.fg = fg
+          colors.fg_dark = fg_dark
+          colors.fg_float = fg
+          colors.fg_gutter = fg_gutter
+          colors.fg_sidebar = fg_dark
+        end,
+      })
+
+      vim.cmd("colorscheme tokyonight-night")
     end,
-  }, { "ellisonleao/gruvbox.nvim" },
+  },
   -- Highlight todo, notes, etc in comments
   { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
 
@@ -704,7 +731,7 @@ require('lazy').setup {
   },
   { 'rebelot/kanagawa.nvim' },
   { 'elianiva/gruvy.nvim' },
-  { 'numToStr/Comment.nvim', opts = {} },
+  { 'numToStr/Comment.nvim',    opts = {} },
   { 'tpope/vim-fugitive' },
   -- {
   --   "nvim-tree/nvim-tree.lua",
@@ -739,7 +766,7 @@ require('lazy').setup {
     end,
     cmd = { "LiveServer", "LiveServerStart", "LiveServerStop" },
   },
-  { "catppuccin/nvim",                     name = "catppuccin", priority = 1000 },
+  { "catppuccin/nvim",           name = "catppuccin", priority = 1000 },
   { 'tanvirtin/monokai.nvim' },
   { 'Mofiqul/vscode.nvim' },
   { 'navarasu/onedark.nvim' },
@@ -748,6 +775,25 @@ require('lazy').setup {
   { "RishabhRD/gruvy" },
   { 'shaunsingh/nord.nvim' },
   { 'nvim-treesitter/playground' },
+  { 'erikbackman/aurora.vim' },
+  { "sainnhe/sonokai" },
+  { "sainnhe/edge" },
+  { "sainnhe/everforest" },
+  {
+    "craftzdog/solarized-osaka.nvim",
+    lazy = false,
+    opts = {
+      style = "night",
+      priority = 1000,
+      transparent = true,
+      styles = {
+        sidebars = "transparent",
+        floats = "transparent",
+      }
+
+    },
+  },
+  { 'luisiacc/gruvbox-baby' },
   { 'maxmx03/solarized.nvim' },
   { 'mbbill/undotree' },
   { "folke/trouble.nvim" },
@@ -761,10 +807,41 @@ require('lazy').setup {
   { 'metalelf0/jellybeans-nvim' },
   { 'nanotech/jellybeans.vim' },
   { 'sainnhe/gruvbox-material' },
+  { "briones-gabriel/darcula-solid.nvim",  requires = "rktjmp/lush.nvim" },
+  { "doums/darcula" },
   {
-    'windwp/nvim-ts-autotag',
-    ft = { 'html', 'javascript', 'typescript' },
-  },
+    "ellisonleao/gruvbox.nvim",
+    name = "gruvbox",
+    config = function()
+      require("gruvbox").setup({
+        terminal_colors = true, -- add neovim terminal colors
+        undercurl = true,
+        underline = false,
+        bold = true,
+        italic = {
+          strings = false,
+          emphasis = false,
+          comments = false,
+          operators = false,
+          folds = false,
+        },
+        strikethrough = true,
+        invert_selection = false,
+        invert_signs = false,
+        invert_tabline = false,
+        invert_intend_guides = false,
+        inverse = true, -- invert background for search, diffs, statuslines and errors
+        contrast = "",  -- can be "hard", "soft" or empty string
+        palette_overrides = {},
+        overrides = {},
+        dim_inactive = false,
+        transparent_mode = false,
+      })
+    end,
+  }, {
+  'windwp/nvim-ts-autotag',
+  ft = { 'html', 'javascript', 'typescript' },
+},
 
 
   {
@@ -775,12 +852,6 @@ require('lazy').setup {
     config = function()
       require("terminal").setup()
     end,
-  },
-  {
-    "ricardoraposo/gruvbox-minor.nvim",
-    lazy = false,
-    priority = 1000,
-    opts = {},
   },
   {
     'stevearc/oil.nvim',
@@ -808,6 +879,7 @@ require('lazy').setup {
     -- or leave it empty to use the default settings
     -- refer to the configuration section below
   },
+  { 'projekt0n/github-nvim-theme' },
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
@@ -842,25 +914,24 @@ require('lazy').setup {
 require('nvim-ts-autotag').setup()
 
 
+
 require("tokyonight").setup({
   -- your configuration comes here
   -- or leave it empty to use the default settings
-  -- disable_background = true,
   style = "night",        -- The theme comes in three styles, `storm`, `moon`, a darker variant `night` and `day`
   light_style = "day",    -- The theme is used when the background is set to light
-  transparent = false,    -- Enable this to disable setting the background color
+  transparent = true,     -- Enable this to disable setting the background color
   terminal_colors = true, -- Configure the colors used when opening a `:terminal` in [Neovim](https://github.com/neovim/neovim)
   styles = {
     -- Style to be applied to different syntax groups
     -- Value is any valid attr-list value for `:help nvim_set_hl`
     comments = { italic = false },
     keywords = { italic = false },
-
     functions = {},
     variables = {},
     -- Background styles. Can be "dark", "transparent" or "normal"
-    sidebars = "transparent",       -- style for sidebars, see below
-    floats = "transparent",         -- style for floating windows
+    sidebars = "dark",              -- style for sidebars, see below
+    floats = "dark",                -- style for floating windows
   },
   sidebars = { "qf", "help" },      -- Set a darker background on sidebar-like windows. For example: `["qf", "vista_kind", "terminal", "packer"]`
   day_brightness = 0.3,             -- Adjusts the brightness of the colors of the **Day** style. Number between 0 and 1, from dull to vibrant colors
@@ -879,37 +950,11 @@ require("tokyonight").setup({
   ---@param colors ColorScheme
   on_highlights = function(highlights, colors) end,
 })
--- Default options:
-require("gruvbox").setup({
-  terminal_colors = true, -- add neovim terminal colors
-  undercurl = true,
-  underline = true,
-  bold = true,
-  italic = {
-    strings = false,
-    emphasis = true,
-    comments = false,
-    operators = false,
-    folds = false,
-  },
-  strikethrough = true,
-  invert_selection = false,
-  invert_signs = false,
-  invert_tabline = false,
-  invert_intend_guides = false,
-  inverse = true,    -- invert background for search, diffs, statuslines and errors
-  contrast = "hard", -- can be "hard", "soft" or empty string
-  palette_overrides = {},
-  overrides = {},
-  dim_inactive = false,
-  transparent_mode = false,
-})
--- vim.cmd("colorscheme gruvbox")
+
 
 require("rose-pine").setup({
-  disable_background = true,
   variant = "main",      -- auto, main, moon, or dawn
-  dark_variant = "main", -- main, moon, or dawn
+  dark_variant = "moon", -- main, moon, or dawn
   dim_inactive_windows = false,
   extend_background_behind_borders = true,
 
@@ -929,6 +974,7 @@ require("rose-pine").setup({
     border = "muted",
     link = "iris",
     panel = "surface",
+
     error = "love",
     hint = "iris",
     info = "foam",
@@ -958,8 +1004,6 @@ require("rose-pine").setup({
   highlight_groups = {
     -- Comment = { fg = "foam" },
     -- VertSplit = { fg = "muted", bg = "muted" },
-
-    -- You can add more intermediate colors if desired
   },
 
   before_highlight = function(group, highlight, palette)
@@ -975,73 +1019,27 @@ require("rose-pine").setup({
   end,
 })
 
---vim.cmd("colorscheme rose-pine")
 -- vim.cmd("colorscheme rose-pine-main")
 -- vim.cmd("colorscheme rose-pine-moon")
 -- vim.cmd("colorscheme rose-pine-dawn")
 
 
-require("catppuccin").setup({
-  flavour = "mocha", -- latte, frappe, macchiato, mocha
-  background = {     -- :h background
-    light = "latte",
-    dark = "mocha",
-  },
-  transparent_background = false, -- disables setting the background color.
-  show_end_of_buffer = false,     -- shows the '~' characters after the end of buffers
-  term_colors = false,            -- sets terminal colors (e.g. `g:terminal_color_0`)
-  dim_inactive = {
-    enabled = false,              -- dims the background color of inactive window
-    shade = "dark",
-    percentage = 0.15,            -- percentage of the shade to apply to the inactive window
-  },
-  no_italic = true,               -- Force no italic
-  no_bold = false,                -- Force no bold
-  no_underline = false,           -- Force no underline
-  styles = {                      -- Handles the styles of general hi groups (see `:h highlight-args`):
-    comments = {},                -- Change the style of comments
-    conditionals = {},
-    loops = {},
-    functions = {},
-    keywords = {},
-    strings = {},
-    variables = {},
-    numbers = {},
-    booleans = {},
-    properties = {},
-    types = {},
-    operators = {},
-    -- miscs = {}, -- Uncomment to turn off hard-coded styles
-  },
-  color_overrides = {},
-  custom_highlights = {},
-  integrations = {
-    cmp = true,
-    gitsigns = true,
-    nvimtree = true,
-    treesitter = true,
-    notify = false,
-    mini = {
-      enabled = true,
-      indentscope_color = "",
-    },
-    -- For more plugins integrations please scroll down (https://github.com/catppuccin/nvim#integrations)
-  },
-})
-
--- setup must be called before loading
--- vim.cmd.colorscheme "catppuccin"
-
+-- require("gruvbox").setup({
+--   overrides = {
+--     Operator = { fg = "#ffffff" },
+--   }
+-- })
+--
 -- Default options:
 require('kanagawa').setup({
   compile = false,  -- enable compiling the colorscheme
   undercurl = true, -- enable undercurls
-  commentStyle = { italic = true },
+  commentStyle = { italic = false },
   functionStyle = {},
   keywordStyle = { italic = false },
   statementStyle = { bold = true },
   typeStyle = {},
-  transparent = false,   -- do not set background color
+  transparent = true,    -- do not set background color
   dimInactive = false,   -- dim inactive window `:h hl-NormalNC`
   terminalColors = true, -- define vim.g.terminal_color_{0,17}
   colors = {             -- add/modify theme and palette colors
@@ -1061,64 +1059,10 @@ require('kanagawa').setup({
 -- setup must be called before loading
 -- vim.cmd("colorscheme kanagawa")
 
-vim.o.background = 'dark'
-
--- default config
-require('solarized').setup({
-  transparent = true,    -- enable transparent background
-  palette = 'solarized', -- or selenized
-  styles = {
-    comments = {},
-    functions = {},
-    variables = {},
-    numbers = {},
-    constants = {},
-    parameters = {},
-    keywords = {},
-    types = {},
-  },
-  enables = {
-    bufferline = true,
-    cmp = true,
-    diagnostic = true,
-    dashboard = true,
-    editor = true,
-    gitsign = true,
-    hop = true,
-    indentblankline = true,
-    lsp = true,
-    lspsaga = true,
-    navic = true,
-    neogit = true,
-    neotree = true,
-    notify = true,
-    noice = true,
-    semantic = true,
-    syntax = true,
-    telescope = true,
-    tree = true,
-    treesitter = true,
-    todo = true,
-    whichkey = true,
-    mini = true,
-  },
-  highlights = {},
-  colors = {},
-  theme = 'default', -- or 'neo'
-  autocmd = true,
-})
-
-
-
-
-
-
 -- Lua
 require('onedark').setup {
   -- Main options --
-  style = 'dark', -- Default theme style. Choose between 'dark', 'darker', 'cool', 'deep', 'warm', 'warmer' and 'light'
-  transparent = false,
-  -- Show/hide background
+  transparent = false,          -- Show/hide background
   term_colors = true,           -- Change terminal color as per the selected theme style
   ending_tildes = false,        -- Show the end-of-buffer tildes. By default they are hidden
   cmp_itemkind_reverse = false, -- reverse item kind highlights in cmp menu
@@ -1158,21 +1102,9 @@ require('onedark').setup {
 
 
 
-vim.cmd([[
-  augroup ClearBackground
-    autocmd!
-    autocmd VimEnter * hi Normal guibg=NONE ctermbg=NONE
-    autocmd VimEnter * hi NonText guibg=NONE ctermbg=NONE
-    autocmd VimEnter * hi LineNr guibg=NONE ctermbg=NONE
-    autocmd VimEnter * hi SignColumn guibg=NONE ctermbg=NONE
-    autocmd VimEnter * hi VertSplit guibg=NONE ctermbg=NONE
-    autocmd VimEnter * hi FoldColumn guibg=NONE ctermbg=NONE
-  augroup END
-]])
-
 
 function ColorMyPencils(color)
-  color = color or "gruvbuddy"
+  color = color or "rose-pine-moon"
   vim.cmd.colorscheme(color)
   vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
   vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
@@ -1182,8 +1114,7 @@ ColorMyPencils()
 -- vim.g.adwaita_disable_cursorline = false -- to disable cursorline
 vim.g.adwaita_transparent = false -- makes the background transparent
 vim.g.adwaita_darker = true
--- vim.cmd("colorscheme my_vivid")
--- vim.cmd("colorscheme gruvbuddy")
+-- vim.cmd("colorscheme onedark")
 --vim.opt.background = 'dark'
 
 
@@ -1200,7 +1131,7 @@ require("toggleterm").setup {
   shading_factor = '1',
   start_in_insert = true,
   persist_size = true,
-  direction = 'tab',
+  direction = 'horizontal',
   hide_numbers = true,
   float_opts = {
     border = "curved",
@@ -1341,7 +1272,8 @@ vim.cmd([[
 
 
 
--- vim.opt.colorcolumn = "120"
+vim.opt.colorcolumn = "115"
+
 
 
 vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
@@ -1559,30 +1491,42 @@ vim.api.nvim_set_keymap('n', '<leader>h', ':split<CR>', { noremap = true, silent
 
 -- file: colors/my-colorscheme-name.lua
 
-local colorbuddy = require('colorbuddy')
+-- local colorbuddy = require('colorbuddy')
 
 -- Set up your custom colorscheme if you want
-colorbuddy.colorscheme("gruvbuddy")
+-- colorbuddy.colorscheme("gruvbuddy")
 
 -- And then modify as you like
-local Color = colorbuddy.Color
-local colors = colorbuddy.colors
-local Group = colorbuddy.Group
-local groups = colorbuddy.groups
-local styles = colorbuddy.styles
-
+-- local Color = colorbuddy.Color
+-- local colors = colorbuddy.colors
+-- local Group = colorbuddy.Group
+-- local groups = colorbuddy.groups
+-- local styles = colorbuddy.styles
+--
 -- Use Color.new(<name>, <#rrggbb>) to create new colors
 -- They can be accessed through colors.<name>
-Color.new('background', '#282c34')
-Color.new('lineNr', '#b3b3b3') -- Add a new color for line numbers
-Color.new('none', 'NONE')
-Color.new('foreground', '#e0e0e0')
-Color.new('visual_bg', '#3E4452')
-
+-- Color.new('background', '#282c34')
+-- Color.new('lineNr', '#b3b3b3') -- Add a new color for line numbers
+-- Color.new('none', 'NONE')
+-- Color.new('foreground', '#e0e0e0')
+-- Color.new('visual_bg', '#3E4452')
 
 -- Disable visual mode highlights
-Group.new('Visual', nil, colors.visual_bg)
+-- Group.new('Visual', nil, colors.visual_bg)
 -- Define line number color to ensure it's visible
-Group.new('LineNr', colors.foreground, colors.background)
+-- Group.new('LineNr', colors.foreground, colors.background)
+
+
+
+
+
+
+
+
+
+
+
+
+
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2
