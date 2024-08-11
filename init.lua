@@ -796,7 +796,6 @@ require('lazy').setup {
   { 'luisiacc/gruvbox-baby' },
   { 'maxmx03/solarized.nvim' },
   { 'mbbill/undotree' },
-  { "folke/trouble.nvim" },
   { 'rktjmp/lush.nvim' },
   { 'sthendev/mariana.vim',                run = 'make' },
   { 'tjdevries/colorbuddy.nvim' },
@@ -830,8 +829,8 @@ require('lazy').setup {
         invert_signs = false,
         invert_tabline = false,
         invert_intend_guides = false,
-        inverse = true, -- invert background for search, diffs, statuslines and errors
-        contrast = "",  -- can be "hard", "soft" or empty string
+        inverse = true,    -- invert background for search, diffs, statuslines and errors
+        contrast = "hard", -- can be "hard", "soft" or empty string
         palette_overrides = {},
         overrides = {},
         dim_inactive = false,
@@ -880,6 +879,43 @@ require('lazy').setup {
     -- refer to the configuration section below
   },
   { 'projekt0n/github-nvim-theme' },
+  {
+    "folke/trouble.nvim",
+    opts = {},
+    cmd = "Trouble",
+    keys = {
+      {
+        "<leader>xx",
+        "<cmd>Trouble diagnostics toggle<cr>",
+        desc = "Diagnostics (Trouble)",
+      },
+      {
+        "<leader>xX",
+        "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
+        desc = "Buffer Diagnostics (Trouble)",
+      },
+      {
+        "<leader>cs",
+        "<cmd>Trouble symbols toggle focus=false<cr>",
+        desc = "Symbols (Trouble)",
+      },
+      {
+        "<leader>cl",
+        "<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
+        desc = "LSP Definitions / references / ... (Trouble)",
+      },
+      {
+        "<leader>xL",
+        "<cmd>Trouble loclist toggle<cr>",
+        desc = "Location List (Trouble)",
+      },
+      {
+        "<leader>xQ",
+        "<cmd>Trouble qflist toggle<cr>",
+        desc = "Quickfix List (Trouble)",
+      },
+    },
+  },
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
@@ -1104,7 +1140,7 @@ require('onedark').setup {
 
 
 function ColorMyPencils(color)
-  color = color or "rose-pine-moon"
+  color = color or "rose-pine"
   vim.cmd.colorscheme(color)
   vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
   vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
@@ -1114,7 +1150,7 @@ ColorMyPencils()
 -- vim.g.adwaita_disable_cursorline = false -- to disable cursorline
 vim.g.adwaita_transparent = false -- makes the background transparent
 vim.g.adwaita_darker = true
--- vim.cmd("colorscheme onedark")
+-- vim.cmd("colorscheme gruvbox")
 --vim.opt.background = 'dark'
 
 
@@ -1239,15 +1275,6 @@ vim.api.nvim_command('hi CursorLine cterm=NONE')
 vim.opt.list = false
 
 vim.opt.guicursor = ""
-
---trouble
--- Lua
-vim.keymap.set("n", "<leader>xx", function() require("trouble").toggle() end)
-vim.keymap.set("n", "<leader>xw", function() require("trouble").toggle("workspace_diagnostics") end)
-vim.keymap.set("n", "<leader>xd", function() require("trouble").toggle("document_diagnostics") end)
-vim.keymap.set("n", "<leader>xq", function() require("trouble").toggle("quickfix") end)
-vim.keymap.set("n", "<leader>xl", function() require("trouble").toggle("loclist") end)
-vim.keymap.set("n", "gR", function() require("trouble").toggle("lsp_references") end)
 
 -- undotree
 vim.keymap.set('n', '<leader>zt', vim.cmd.UndotreeToggle)
