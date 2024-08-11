@@ -925,6 +925,7 @@ require('lazy').setup {
       "nvim-treesitter/nvim-treesitter"
     }
   },
+  { 'nvim-neotest/neotest-jest' },
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
@@ -1167,6 +1168,24 @@ vim.g.adwaita_darker = true
 -- vim.opt.background = 'dark'
 
 
+
+
+--Neotest
+local neotest = require("neotest")
+
+neotest.setup({
+  adapters = {
+    require("neotest-jest")({
+      jestCommand = "npx jest",
+      jestConfigFile = "jest.config.js",
+    }),
+  },
+})
+
+vim.api.nvim_set_keymap('n', '<leader>tn', ':Neotest run<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>tf', ':Neotest run --file<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>tl', ':Neotest run --last<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>ts', ':Neotest summary<CR>', { noremap = true, silent = true })
 
 require("toggleterm").setup {
   size = 11,
